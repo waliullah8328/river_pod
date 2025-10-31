@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:river_pod/core/services/auth_service.dart';
 import '../../../../core/common/widgets/new_custon_widgets/app_snackbar.dart';
+import '../../../../core/language/app_local.dart';
 import '../../../../core/utils/logging/logger.dart';
-import '../../../../route/routes_name.dart';
+
 import '../data/repository/login_repository.dart';
 import 'login_state.dart';
 
@@ -27,19 +27,19 @@ class LoginNotifier extends StateNotifier<LoginState> {
 
 
 
+  void setEmail(String value) => state = state.copyWith(email: value);
+  void setPassword(String value) => state = state.copyWith(password: value);
 
-  Future<bool> login({
-    required String email,
-    required String password,
-    required BuildContext context,
-  }) async {
+
+
+  Future<bool> login({required BuildContext context}) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
       // ✅ Perform login (async gap)
       final user = await loginRepository.login(
-        email: email,
-        password: password,
+        email: state.email,
+        password: state.password,
         context: context,
       );
 
@@ -66,6 +66,18 @@ class LoginNotifier extends StateNotifier<LoginState> {
       state = state.copyWith(isLoading: false, error: e.toString());
       AppSnackBar.showError(context, 'Something went wrong');
       return false;
+    }
+  }
+
+  String getText(String key, String langCode) {
+    switch (langCode) {
+      case 'km':
+        return AppLocale.kn[key] ?? key;
+      case 'bn':
+        return AppLocale.bn[key] ?? key;
+      case 'en':
+      default:
+        return AppLocale.en[key] ?? key;
     }
   }
 

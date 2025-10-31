@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:go_router/go_router.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:river_pod/route/routes_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -94,7 +94,8 @@ class AuthService {
   static Future<void> goToLogin(context) async {
     // Example navigation logic here
      //Get.offAll(() => OnBoardingScreen());
-    GoRouter.of(context).go(RouteNames.loginScreen);
+    //GoRouter.of(context).go(RouteNames.loginScreen);
+    Navigator.pushNamedAndRemoveUntil(context, RouteNames.loginScreen, (route)=>false);
   }
 
   static Future<String?> get rememberedEmail async {
