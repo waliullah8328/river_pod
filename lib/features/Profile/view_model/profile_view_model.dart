@@ -3,10 +3,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:river_pod/features/Profile/model/profile_repository.dart';
+import 'package:river_pod/features/Profile/data/model/profile_model.dart';
+
 import 'package:river_pod/features/Profile/view_model/profile_state.dart';
 
 import '../../../core/services/theme_service.dart';
+import '../data/repository/profile_repository.dart';
+
+// For get me profile
+final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
+  return ProfileRepository();
+});
+
+final profileProvider = FutureProvider<GetMyProfileModel>((ref) async {
+  return ref.watch(profileRepositoryProvider).fetchUser();
+});
+
+
+
 
 
 final themeModeProvider =
@@ -43,9 +57,7 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
 
 // For profile
 
-final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
-  return ProfileRepository();
-});
+
 
 
 final profileNotifierProvider =
