@@ -17,6 +17,9 @@ class AppUrls {
 
    // Authentication Part
    static const String login = '$_baseUrl/auth/login';
+   static const String forgetEmail = '$_baseUrl/auth/forget-password';
+   static const String forgotVerifyOtp = '$_baseUrl/auth/forget-otp-verify';
+   static const String resetPassword = '$_baseUrl/auth/reset-password';
 
 
 
