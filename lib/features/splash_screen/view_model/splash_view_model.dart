@@ -88,6 +88,9 @@ class SplashNotifier extends StateNotifier<SplashState> {
   /// Navigate after splash delay
   Future<void> _navigateNext(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 3));
+    debugPrint("---------------------------------------");
+    debugPrint(AuthService.token);
+    debugPrint("---------------------------------------");
 
     if (AuthService.hasSeenOnboarding()) {
       if (AuthService.hasToken()) {

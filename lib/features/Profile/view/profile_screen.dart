@@ -6,6 +6,7 @@ import 'package:river_pod/core/utils/constants/image_path.dart';
 import '../../../core/language/app_local.dart';
 import '../../../core/language/local_notifier_widget.dart';
 import '../view_model/profile_view_model.dart';
+import 'edit_profile_screen.dart';
 // your themeModeProvider
 
 class ProfileScreen extends ConsumerWidget {
@@ -25,6 +26,7 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final profileList = ref.watch(profileProvider );
 
     final state = ref.watch(profileNotifierProvider);
     final notifier = ref.read(profileNotifierProvider.notifier);
@@ -62,32 +64,60 @@ class ProfileScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            profileList.when(
+                data: (profileList){
+                  final profile = profileList.data;
+                  return Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundColor: theme.primaryColor.withOpacity(0.1),
+                        backgroundImage: const AssetImage(ImagePath.onBoardingImage),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Name
+                      Text(
+                        "${_getText(AppLocale.hello, currentLangCode)} ${profile?.name}",
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.primaryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+
+                      // Welcome Text
+                      Text(
+                        _getText(AppLocale.welcome, currentLangCode),
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: theme.textTheme.bodyLarge?.color?.withOpacity(0.7),
+                        ),
+                      ),
+
+                    ],
+                  );
+                },
+                error:  (error,stack){
+                  debugPrint(error.toString());
+                  return Text(error.toString());
+                },
+                loading: ()=>Center(child: CircularProgressIndicator())),
             // Profile Avatar
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: theme.primaryColor.withOpacity(0.1),
-              backgroundImage: const AssetImage(ImagePath.onBoardingImage),
-            ),
-            const SizedBox(height: 16),
 
-            // Name
-            Text(
-              _getText(AppLocale.hello, currentLangCode),
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: theme.primaryColor,
-              ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+                );
+                // Refresh the profile provider after coming back
+                ref.invalidate(profileProvider);
+              },
+              child: const Text("Edit Profile"),
             ),
-            const SizedBox(height: 8),
 
-            // Welcome Text
-            Text(
-              _getText(AppLocale.welcome, currentLangCode),
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                color: theme.textTheme.bodyLarge?.color?.withOpacity(0.7),
-              ),
-            ),
             const SizedBox(height: 24),
 
             // Card with Language Selector

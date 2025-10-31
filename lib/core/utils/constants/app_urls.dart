@@ -20,6 +20,7 @@ class AppUrls {
    static const String forgetEmail = '$_baseUrl/auth/forget-password';
    static const String forgotVerifyOtp = '$_baseUrl/auth/forget-otp-verify';
    static const String resetPassword = '$_baseUrl/auth/reset-password';
+   static const String getMyProfile = '$_baseUrl/user/me';
 
 
 
