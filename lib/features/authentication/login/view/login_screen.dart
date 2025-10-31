@@ -59,7 +59,9 @@ class LoginScreen extends ConsumerWidget {
              SizedBox(height: 6.h),
               Align(
                 alignment: Alignment.centerRight,
-                  child: TextButton(onPressed: (){}, child: Text("Forget Password",style: TextStyle(color: Colors.blue),))),
+                  child: TextButton(onPressed: (){
+                    Navigator.pushNamed(context, RouteNames.forgetEmailScreen);
+                  }, child: Text("Forget Password",style: TextStyle(color: Colors.blue),))),
               SizedBox(height: 16.h),
 
               // Button or Loading

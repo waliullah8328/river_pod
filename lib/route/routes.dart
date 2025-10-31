@@ -1,6 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:river_pod/features/authentication/change_password/view/change_password_screen.dart';
+import 'package:river_pod/features/authentication/forget_password/view/forget_password_screen.dart';
+import 'package:river_pod/features/authentication/verify_otp/view/verify_otp_screen.dart';
 import 'package:river_pod/features/nav_main/view/home_screen.dart';
 import 'package:river_pod/features/language_selection_screen/language_selection_screen.dart';
 import 'package:river_pod/features/authentication/login/view/login_screen.dart';
@@ -32,6 +35,19 @@ class Routes{
         return MaterialPageRoute(builder: (context)=>SignUpScreen());
       case RouteNames.onboardingScreen:
         return MaterialPageRoute(builder: (context)=>OnboardingScreen());
+
+      case RouteNames.forgetEmailScreen:
+        return MaterialPageRoute(builder: (context)=>ForgetEmailScreen());
+      case RouteNames.verifyOtpScreen:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return MaterialPageRoute(
+          builder: (_) => const VerifyOtpScreen(),
+          settings: settings,
+        );
+
+
+      case RouteNames.resetPasswordScreen:
+        return MaterialPageRoute(builder: (context)=>ResetPasswordScreen(),settings: settings,);
       default:
         return MaterialPageRoute(builder: (context){
           return Scaffold(body: Center(child: Text("No route generated"),),);
