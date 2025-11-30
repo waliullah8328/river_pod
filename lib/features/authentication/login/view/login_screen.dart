@@ -35,6 +35,7 @@ class LoginScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
               Text("Login",style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w800),),
               SizedBox(height: 10.h),
               Text("Welcome Back!",style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),),

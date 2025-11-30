@@ -80,7 +80,7 @@ class ResetPasswordScreen extends ConsumerWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: state.isLoading
-                        ? null // disable button while loading
+                        ? null // d isable button while loading
                         : () async {
 
                       if(changePasswordFormKey.currentState!.validate())
